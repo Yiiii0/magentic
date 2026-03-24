@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Literal
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -24,8 +25,14 @@ class Settings(BaseSettings):
     anthropic_temperature: float | None = None
 
     forge_model: str = "OpenAI/gpt-4o-mini"
-    forge_api_key: str | None = None
-    forge_base_url: str | None = None
+    forge_api_key: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("MAGENTIC_FORGE_API_KEY", "FORGE_API_KEY"),
+    )
+    forge_base_url: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices("MAGENTIC_FORGE_BASE_URL", "FORGE_API_BASE"),
+    )
     forge_max_tokens: int | None = None
     forge_seed: int | None = None
     forge_temperature: float | None = None

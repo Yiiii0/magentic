@@ -1,5 +1,3 @@
-import os
-
 from magentic.chat_model.base import ChatModel, _chat_model_context
 from magentic.settings import Backend, get_settings
 
@@ -26,12 +24,9 @@ def get_chat_model() -> ChatModel:
 
             return OpenaiChatModel(
                 model=settings.forge_model,
-                api_key=settings.forge_api_key or os.getenv("FORGE_API_KEY"),
-                base_url=(
-                    settings.forge_base_url
-                    or os.getenv("FORGE_API_BASE")
-                    or "https://api.forge.tensorblock.co/v1"
-                ),
+                api_key=settings.forge_api_key,
+                base_url=settings.forge_base_url
+                or "https://api.forge.tensorblock.co/v1",
                 max_tokens=settings.forge_max_tokens,
                 seed=settings.forge_seed,
                 temperature=settings.forge_temperature,
