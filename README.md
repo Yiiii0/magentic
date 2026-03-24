@@ -9,7 +9,7 @@ Seamlessly integrate Large Language Models into Python code. Use the `@prompt` a
 - [LLM-Assisted Retries] to improve LLM adherence to complex output schemas.
 - [Observability] using OpenTelemetry, with native [Pydantic Logfire integration].
 - [Type Annotations] to work nicely with linters and IDEs.
-- [Configuration] options for multiple LLM providers including OpenAI, Anthropic, and Ollama.
+- [Configuration] options for multiple LLM providers including OpenAI, Anthropic, Forge, and Ollama.
 - Many more features: [Chat Prompting], [Parallel Function Calling], [Vision], [Formatting], [Asyncio]...
 
 ## Installation

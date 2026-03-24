@@ -80,6 +80,26 @@ When using the `openai` backend, setting the `MAGENTIC_OPENAI_BASE_URL` environm
 
 To use Azure with the openai backend you will need to set the `MAGENTIC_OPENAI_API_TYPE` environment variable to "azure" or use `OpenaiChatModel(..., api_type="azure")`, and also set the environment variables needed by the openai package to access Azure. See https://github.com/openai/openai-python#microsoft-azure-openai
 
+### Forge
+
+This uses the `openai` Python package with Forge's OpenAI-compatible API.
+
+No additional installation is required. Use the `OpenaiChatModel` class and set your Forge API key.
+
+```python
+import os
+
+from magentic import OpenaiChatModel
+
+model = OpenaiChatModel(
+    "OpenAI/gpt-4o-mini",
+    api_key=os.environ["FORGE_API_KEY"],
+    base_url="https://api.forge.tensorblock.co/v1",
+)
+```
+
+When configuring global backend settings, set `MAGENTIC_BACKEND=forge`. You can override the default endpoint using `FORGE_API_BASE` or `MAGENTIC_FORGE_BASE_URL`.
+
 ### Anthropic
 
 This uses the `anthropic` Python package and supports all features of magentic.
@@ -167,12 +187,18 @@ The following environment variables can be set.
 
 | Environment Variable           | Description                              | Example                      |
 | ------------------------------ | ---------------------------------------- | ---------------------------- |
-| MAGENTIC_BACKEND               | The package to use as the LLM backend    | anthropic / openai / litellm |
+| MAGENTIC_BACKEND               | The package to use as the LLM backend    | anthropic / forge / openai / litellm / mistral |
 | MAGENTIC_ANTHROPIC_MODEL       | Anthropic model                          | claude-3-haiku-20240307      |
 | MAGENTIC_ANTHROPIC_API_KEY     | Anthropic API key to be used by magentic | sk-...                       |
 | MAGENTIC_ANTHROPIC_BASE_URL    | Base URL for an Anthropic-compatible API | http://localhost:8080        |
 | MAGENTIC_ANTHROPIC_MAX_TOKENS  | Max number of generated tokens           | 1024                         |
 | MAGENTIC_ANTHROPIC_TEMPERATURE | Temperature                              | 0.5                          |
+| MAGENTIC_FORGE_MODEL           | Forge model                              | OpenAI/gpt-4o-mini           |
+| MAGENTIC_FORGE_API_KEY         | Forge API key to be used by magentic     | forge-...                    |
+| MAGENTIC_FORGE_BASE_URL        | Base URL for Forge API                   | https://api.forge.tensorblock.co/v1 |
+| MAGENTIC_FORGE_MAX_TOKENS      | Forge max number of generated tokens     | 1024                         |
+| MAGENTIC_FORGE_SEED            | Seed for deterministic sampling          | 42                           |
+| MAGENTIC_FORGE_TEMPERATURE     | Forge temperature                        | 0.5                          |
 | MAGENTIC_LITELLM_MODEL         | LiteLLM model                            | claude-2                     |
 | MAGENTIC_LITELLM_API_BASE      | The base url to query                    | http://localhost:11434       |
 | MAGENTIC_LITELLM_MAX_TOKENS    | LiteLLM max number of generated tokens   | 1024                         |

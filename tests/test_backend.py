@@ -62,6 +62,24 @@ def test_backend_openai_chat_model(monkeypatch):
     assert chat_model.temperature == 2
 
 
+def test_backend_forge_chat_model(monkeypatch):
+    monkeypatch.setenv("MAGENTIC_BACKEND", "forge")
+    monkeypatch.setenv("MAGENTIC_FORGE_MODEL", "OpenAI/gpt-4o-mini")
+    monkeypatch.setenv("FORGE_API_KEY", "forge-1234567890")
+    monkeypatch.setenv("FORGE_API_BASE", "https://api.forge.tensorblock.co/v1")
+    monkeypatch.setenv("MAGENTIC_FORGE_MAX_TOKENS", "1024")
+    monkeypatch.setenv("MAGENTIC_FORGE_SEED", "42")
+    monkeypatch.setenv("MAGENTIC_FORGE_TEMPERATURE", "2")
+    chat_model = get_chat_model()
+    assert isinstance(chat_model, OpenaiChatModel)
+    assert chat_model.model == "OpenAI/gpt-4o-mini"
+    assert chat_model.api_key == "forge-1234567890"
+    assert chat_model.base_url == "https://api.forge.tensorblock.co/v1"
+    assert chat_model.max_tokens == 1024
+    assert chat_model.seed == 42
+    assert chat_model.temperature == 2
+
+
 def test_backend_litellm_chat_model(monkeypatch):
     monkeypatch.setenv("MAGENTIC_BACKEND", "litellm")
     monkeypatch.setenv("MAGENTIC_LITELLM_API_BASE", "http://localhost:11434")

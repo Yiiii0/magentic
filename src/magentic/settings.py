@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Backend(Enum):
     ANTHROPIC = "anthropic"
+    FORGE = "forge"
     LITELLM = "litellm"
     MISTRAL = "mistral"
     OPENAI = "openai"
@@ -21,6 +22,13 @@ class Settings(BaseSettings):
     anthropic_base_url: str | None = None
     anthropic_max_tokens: int = 1024
     anthropic_temperature: float | None = None
+
+    forge_model: str = "OpenAI/gpt-4o-mini"
+    forge_api_key: str | None = None
+    forge_base_url: str | None = None
+    forge_max_tokens: int | None = None
+    forge_seed: int | None = None
+    forge_temperature: float | None = None
 
     litellm_model: str = "gpt-4o"
     litellm_api_base: str | None = None
